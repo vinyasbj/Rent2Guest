@@ -13,33 +13,185 @@
 
   <div class="field">
     <%= f.label :username %><br>
-    <%= f.text_field :username %>
+    <%= f.text_field :username, class: "form-control" %>
+    <p id="usernameError" style="color: red"></p>
   </div>
   <div class="field">
     <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
+    <%= f.text_field :first_name , class: "form-control"%>
+    <p id="firstnameError" style="color: red"></p>
   </div>
   <div class="field">
     <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
+    <%= f.text_field :last_name , class: "form-control"%>
+    <p id="lastnameError" style="color: red"></p>
   </div>
   <div class="field">
     <%= f.label :number %><br>
-    <%= f.text_field :number %>
+    <%= f.text_field :number , class: "form-control"%>
+    <p id="numberError" style="color: red"></p>
   </div>
   <div class="field">
     <%= f.label :role_id %><br>
-    <%= f.collection_select :role_id ,Role.all ,:id,:name ,{promt: "select a role"}%>
+    <%= f.collection_select :role_id ,Role.all ,:id,:name ,{promt: "select a role"} , class: "form-control"%>
   </div>
   <div class="field">
     <%= f.label :email %><br>
-    <%= f.text_field :email %>
+    <%= f.text_field :email , class: "form-control"%>
+    <p id="emailError" style="color: red"></p>
   </div>
   <div class="field">
     <%= f.label :password %><br>
-    <%= f.password_field :password %>
+    <%= f.password_field :password , class: "form-control"%>
+    <p id="passwordError" style="color: red"></p>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="actions"><br>
+    <%= f.submit "submit", id: "submit", class: "btn btn-info"%>
   </div>
 <% end %>
+
+<script>
+  var usernameHandle = document.getElementById('user_username');
+  var firstnameHandle = document.getElementById('user_first_name');
+  var lastnameHandle = document.getElementById('user_last_name');
+  var numberHandle = document.getElementById('user_number');
+  var roleHandle = document.getElementById('user_role_id');
+  var emailHandle = document.getElementById('user_email');
+  var passwordHandle = document.getElementById('user_password');
+  var submitHandle = document.getElementById('submit');
+
+  var emailErrorHandle = document.getElementById('emailError');
+  var usernameErrorHandle = document.getElementById('usernameError');
+  var firstnameErrorHandle = document.getElementById('firstnameError');
+  var lastnameErrorHandle = document.getElementById('lastnameError');
+  var numberErrorHandle = document.getElementById('numberError');
+  var passwordErrorHandle = document.getElementById('passwordError');
+
+  submitHandle.disabled = true ;
+
+  var validator = {
+      password: false ,
+      email: false,
+      username: false,
+      first_name: false,
+      last_name: false,
+      number: false
+  }
+
+  function enableSubmit() {
+    if (Object.values(validator).includes(false)) {
+        submitHandle.disabled = true;
+      } else {
+        submitHandle.disabled = false;
+      }
+  }
+
+
+  function validateEmail(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+
+    function validateUserName(username) {
+      var alphaOnly = /^[a-zA-Z]*$/;
+      return alphaOnly.test(username);
+    }
+
+    function validateNumber(number) {
+      var numberOnly = /^\d+$/;
+      return numberOnly.test(number);
+    }
+
+
+    emailHandle.onblur = function(){
+      validator.email = false ;
+      if (emailHandle.value == "") {
+        emailErrorHandle.innerHTML = "cant be blank" ;
+      } else {
+          if (validateEmail(emailHandle.value)) {
+          emailErrorHandle.innerHTML = "";
+          validator.email = true;
+          }else {
+            emailErrorHandle.innerHTML = "Invaild Email id";
+          }
+       } 
+       enableSubmit();
+    };
+
+    usernameHandle.onblur = function(){
+      validator.username = false ;
+      if (usernameHandle.value == "") {
+          usernameErrorHandle.innerHTML ="cant be blank" ;
+        }else {
+          if (validateUserName(usernameHandle.value)) {
+            usernameErrorHandle.innerHTML = "";
+            validator.username = true; 
+          }else {
+            usernameErrorHandle.innerHTML = "Invaild username " ;
+          }
+        }
+      enableSubmit();
+    };
+
+    firstnameHandle.onblur = function(){
+      validator.first_name = false ;
+      if(firstnameHandle.value == ""){
+        firstnameErrorHandle.innerHTML = "cant be blank";
+      } else {
+        if (validateUserName(firstnameHandle.value)) {
+          firstnameErrorHandle.innerHTML = "";
+          validator.first_name = true;
+        } else {
+          firstnameErrorHandle.innerHTML = "Invaild first name"
+        }
+      }
+      enableSubmit();
+    };
+
+    lastnameHandle.onblur = function(){
+      validator.last_name = false ;
+      if(lastnameHandle.value == ""){
+        lastnameErrorHandle.innerHTML = "cant be blank";
+      } else {
+        if (validateUserName(lastnameHandle.value)) {
+          lastnameErrorHandle.innerHTML = "";
+          validator.last_name = true;
+        } else {
+          lastnameErrorHandle.innerHTML = "Invaild last name"
+        }
+      }
+      enableSubmit();
+    };
+
+    numberHandle.onblur = function(){
+      validator.number = false ;
+      if(numberHandle.value == ""){
+        numberErrorHandle.innerHTML = "cant be blank";
+      } else {
+        if (validateNumber(numberHandle.value)) {
+            if (numberHandle.value.length == 10) {
+             numberErrorHandle.innerHTML = "";
+             validator.number = true;
+          } else {
+            numberErrorHandle.innerHTML = "shld be 10 numbers";
+          }
+        } else {
+          numberErrorHandle.innerHTML = "Invaild number"
+        }
+      }
+      enableSubmit();
+    };
+
+    passwordHandle.onblur = function(){
+      validator.password = false ;
+      if(passwordHandle.value == ""){
+        passwordErrorHandle.innerHTML = "cant be blank";
+      } else {
+        passwordErrorHandle.innerHTML = "";
+        validator.password = true;
+      }
+      enableSubmit(); 
+    };
+
+</script>

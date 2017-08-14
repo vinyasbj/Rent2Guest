@@ -5,13 +5,13 @@ class Ability
     if user.nil?
       can :read,[City,Amenity]
     elsif user.admin?
-      can :manage ,[City,Amenity]
+      can :manage ,[City,Amenity,User]
       can [:create ,:read,:update],Role
     elsif user.host?
       can [:update,:destroy],Amenity do |amenity|
         amenity.try(:user) == user
       end
-      can [:read,:create],[City,Amenity]
+      can [:read,:create,:update],[City,Amenity]
     elsif user.guest?
       can :read,[City,Amenity]
     end

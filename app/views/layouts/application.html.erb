@@ -4,19 +4,31 @@
   <title>Rent2guest</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://harvesthq.github.io/chosen/chosen.css" />
+  
+  
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if user_signed_in? %>
-  	Welcome <%= current_user.username %>
-     <%= link_to "Account Setting" , edit_user_registration_path %> | <%= link_to "Logout" , destroy_user_session_path, method: :delete %>
-  	<% else %>
-  	<%= link_to "Login" , new_user_session_path %> | <%= link_to "Register" , new_user_registration_path %>
-  <% end %>
-    <br>
-    <%=link_to "roles" ,roles_path %> | <%= link_to "cities" , cities_path %> | <%= link_to "amenities" , amenities_path %>  <br>
-  <%= yield %>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <div class="container">
+    <% if user_signed_in? %>
+       <% if can? :read , User.new %> 
+         <%=link_to "users" , users_path %>
+        <% end %>
+       <% if can? :read , Role.new %> 
+        <%=link_to "roles" ,roles_path %> 
+       <% end %>
+        <%= link_to "cities" , cities_path %> | <%= link_to "amenities" , amenities_path %><br>
+    	Welcome <%= current_user.username %>
+       <%= link_to "Account Setting" , edit_user_registration_path %> | <%= link_to "Logout" , destroy_user_session_path, method: :delete %>
+    <% else %>
+    	<%= link_to "Login" , new_user_session_path %> | <%= link_to "Register" , new_user_registration_path %>
+      <br>
+    <% end %>
+      <%= yield %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+</div>
 </body>
 </html>

@@ -1,0 +1,67 @@
+<%= form_for(@room) do |f| %>
+  <% if @room.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
+
+      <ul>
+      <% @room.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :rules %><br>
+    <%= f.text_field :rules %>
+  </div>
+
+  <div class="field">
+    <%= f.label :minimum_days %><br>
+    <%= f.number_field :minimum_days %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city %><br>
+    <%= f.collection_select :city_id, City.all,:id,:name ,{promt: "select city"} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= f.label :latitude %><br>
+    <%= f.number_field :latitude %>
+  </div>
+
+  <div class="field">
+    <%= f.label :longitude %><br>
+    <%= f.number_field :longitude %>
+  </div>
+  <%# only for admin %>
+  <div class="field">
+    <%= f.label :authorized %><br>
+    <%= f.radio_button :is_authorized ,"true", :value => "false"%>
+  </div>
+  
+  <div class="actions"><br>
+    <%= f.submit "submit", id: "submit", class: "btn btn-info"%>
+  </div>
+<% end %>

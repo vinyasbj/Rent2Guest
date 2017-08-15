@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username,:first_name,:last_name
 
   belongs_to :role
-
+  has_many :rooms
+  
   after_create :assign_role_to_user
 
   def admin?

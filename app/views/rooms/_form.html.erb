@@ -48,7 +48,8 @@
 
   <div class="field">
     <%= f.label :address %><br>
-    <%= f.text_field :address %>
+    <%= f.text_area :address,row: 10,col: 10 %>
+    <p id="addressError" style="color: red"></p>
   </div>
 
   <div class="field">
@@ -70,3 +71,42 @@
     <%= f.submit "submit", id: "submit", class: "btn btn-info"%>
   </div>
 <% end %>
+
+<script>
+  var addressHandle =  document.getElementById('room_address');
+  var addressErrorHandle = document.getElementById('addressError');
+  var latitudeHandle = document.getElementById('room_latitude');
+  var longitudeHandle = document.getElementById('room_longitude');
+
+
+  addressHandle.onblur = function(){
+    if(addressHandle.value == ""){
+      addressErrorHandle.innerHTML = "Can't be blank";
+    } else {
+      addressErrorHandle.innerHTML = ""; 
+      var addressSplit = addressHandle.value.split(" ");
+      var addressJoin = addressSplit.join("+");
+      console.log(addressJoin);
+      var xhr = new XMLHttpRequest();
+           xhr.open('GET',"https://maps.googleapis.com/maps/api/geocode/json?address="+addressJoin+"&key=AIzaSyBZEUR89PrVcJnWmRCySjIePLjjmGr_VlQ");
+           xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                var response = JSON.parse(xhr.responseText);
+                      result = response.results;
+
+                     var latitude = "";
+                      var longitude = "";
+                  result.forEach(function(res){
+                     latitude = res.geometry.location.lat;
+                     longitude = res.geometry.location.lng;
+                    console.log(latitude);
+                    console.log(longitude);
+                  });
+                  latitudeHandle.value = latitude;
+                  longitudeHandle.value = longitude;
+              }   
+            };      
+           xhr.send();
+    }
+  };
+</script>

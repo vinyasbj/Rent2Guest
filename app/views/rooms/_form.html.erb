@@ -33,7 +33,12 @@
 
   <div class="field">
     <%= f.label :minimum_days %><br>
-    <%= f.number_field :minimum_days %>
+    <%= f.select :minimum_days,[1,2,3,4,5,6,7] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :amenity %><br>
+    <%= f.collection_check_boxes :amenity_ids ,Amenity.all ,:id,:name%>
   </div>
 
   <div class="field">
@@ -56,11 +61,11 @@
     <%= f.number_field :longitude %>
   </div>
   <%# only for admin %>
-  <div class="field">
-    <%= f.label :authorized %><br>
-    <%= f.radio_button :is_authorized ,"true", :value => "false"%>
-  </div>
   
+    <div class="field">
+      <%= f.label :authorized %><br>
+      <%= f.radio_button :is_authorized ,"true", :value => "false"%>
+    </div>
   <div class="actions"><br>
     <%= f.submit "submit", id: "submit", class: "btn btn-info"%>
   </div>

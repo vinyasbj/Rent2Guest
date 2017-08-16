@@ -3,14 +3,18 @@ class Room < ActiveRecord::Base
 	belongs_to :user
 	validates_presence_of :name ,:description,:price,:rules,:minimum_days,:address,:latitude,:longitude
 	after_create :assign_role_to_host
+	after_create :send_confirmation
 
 	def send_confirmation
-		RoomAdded.room_confirmation(self).deliver!
+		NotificationAdmin.room_confirmation(self).deliver!
 	end
 
 	def assign_role_to_host
-		role = Role.second
-		self.user.role_id = role.id
-		user.save
+		role_admin = Role.first
+		role_host= Role.second
+		if self.user.role_id != role_admin.id 	
+			self.user.role_id = role_host.id
+			user.save
+		end
 	end
 end

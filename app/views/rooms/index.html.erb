@@ -15,6 +15,7 @@
         <th>Longitude</th>
         <th>username</th>
         <th>Authorized</th>
+        <th>Authorize</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -34,14 +35,13 @@
           <td><%= room.user.username%></td>
           <td><%= room.is_authorized %></td>
           <td><%= form_for(room) do |f| %>
-              <% if current_user.role? "admin" %>
-                <%= f.label :authorized %><br>
-                <%= f.check_box :is_authorized %>
-              <% end %></td>
-              <td><%= f.submit "submit" %></td>
-              <td><%= link_to 'Edit', edit_room_path(room) %></td>
-              <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
+                <% if current_user.role? "admin" %>
+                  <%= f.check_box :is_authorized %>
+                <% end %>
+                <%= f.submit "Unauthorize Room" %></td>
+              <% end %>
+          <td><%= link_to 'Edit', edit_room_path(room) %></td>
+          <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
@@ -65,6 +65,7 @@
         <th>Longitude</th>
         <th>username</th>
         <th>Authorized</th>
+        <th>Authorize</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -83,15 +84,14 @@
           <td><%= room.longitude %></td>
           <td><%= room.user.username%></td>
           <td><%= room.is_authorized %></td>
-            <td><%= form_for(room) do |f| %>
-              <% if current_user.role? "admin" %>
-                <%= f.label :authorized %><br>
-                <%= f.check_box :is_authorized %>
-              <% end %></td>
-              <td><%= f.submit "submit" %></td>
+          <td><%= form_for(room) do |f| %>
+                <% if current_user.role? "admin" %>
+                  <%= f.check_box :is_authorized %>
+                <% end %>
+                <%= f.submit "Authorize Room" %></td>
+            <% end %>
           <td><%= link_to 'Edit', edit_room_path(room) %></td>
           <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% end %>
         </tr>
       <% end %>
     </tbody>

@@ -1,8 +1,19 @@
 class RoomsController < ApplicationController
 	before_action :authenticate_user! ,except: [:index ,:show]
+
 	load_and_authorize_resource
 	def index
-		@rooms = Room.all
+		if current_user.nil?  
+			@rooms = Room.where(is_authorized: true)
+		elsif current_user.role? "host"
+			@rooms = Room.where(is_authorized: true)
+		elsif current_user.role? "guest"
+			@rooms = Room.where(is_authorized: true)		
+		elsif current_user.role? "admin"
+			@rooms = Room.all
+		end
+		@room_authorized = Room.where(is_authorized: true)
+		@room_unauthorized = Room.where(is_authorized: false)
 	end
 
 	def show
@@ -51,6 +62,10 @@ class RoomsController < ApplicationController
 	      format.html { redirect_to rooms_url, notice: 'room was successfully destroyed.' }
 	      format.json { head :no_content }
 	    end
+	end
+
+	def my_rooms
+		# @my_rooms = Room.
 	end
 
 	private 

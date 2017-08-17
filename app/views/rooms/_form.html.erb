@@ -48,25 +48,26 @@
 
   <div class="field">
     <%= f.label :address %><br>
-    <%= f.text_area :address,row: 10,col: 10 %>
+    <%= f.text_area :address ,row:50 ,col:50 %>
     <p id="addressError" style="color: red"></p>
   </div>
 
   <div class="field">
     <%= f.label :latitude %><br>
-    <%= f.number_field :latitude %>
+    <%= f.text_field :latitude %>
   </div>
 
   <div class="field">
     <%= f.label :longitude %><br>
-    <%= f.number_field :longitude %>
+    <%= f.text_field :longitude %>
   </div>
   <%# only for admin %>
-  
-    <div class="field">
+  <div class="field">
+    <% if current_user.role? "admin" %>
       <%= f.label :authorized %><br>
-      <%= f.radio_button :is_authorized ,"true", :value => "false"%>
-    </div>
+      <%= f.check_box :is_authorized %>
+    <% end %>
+  </div>
   <div class="actions"><br>
     <%= f.submit "submit", id: "submit", class: "btn btn-info"%>
   </div>

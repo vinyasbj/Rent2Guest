@@ -11,14 +11,8 @@ class User < ActiveRecord::Base
   
   after_create :assign_role_to_user
 
-  def admin?
-    self.role.name == "admin"
-  end
-  def host?
-  self.role.name == "host"
-  end
-  def guest?
-    self.role.name == "guest"
+  def role?(role)
+    self.role.name == role
   end
 
   def assign_role_to_user

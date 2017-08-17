@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
+  get 'rooms/my_rooms'
   resources :amenities
   devise_for :users
   resources :cities
   resources :roles
   resources :rooms
-  
   scope "/admin" do
      resources :users
   end

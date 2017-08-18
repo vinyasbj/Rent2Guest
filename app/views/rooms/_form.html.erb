@@ -63,7 +63,7 @@
   </div>
   <%# only for admin %>
   <div class="field">
-    <% if current_user.role? "admin" %>
+    <% if can? :update,Room.new %>
       <%= f.label :authorized %><br>
       <%= f.check_box :is_authorized %>
     <% end %>

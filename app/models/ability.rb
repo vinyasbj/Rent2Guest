@@ -8,12 +8,12 @@ class Ability
       can :manage ,[City,Amenity,User,Room]
       can [:create ,:read,:update],Role
     elsif user.role? "host"
-      can [:read,:create],[City,Amenity,Room]
+      can :my_rooms,Room 
+      can [:read,:create],[Room]
       can [:update,:destroy],Room do |room|
         room.user == user
       end
     elsif user.role? "guest"
-      can :read,[City,Amenity]
       can [:read,:create], Room
     end
 

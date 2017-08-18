@@ -1,57 +1,71 @@
 <p id="notice"><%= notice %></p>
-<h1>Listing Authorized Rooms</h1>
+<% if can? :my_rooms , Room.new %>
+  <%= link_to("my_rooms", rooms_my_rooms_path) %>
+<% end %>
+<% if can? :read , Room.new %>
+  <h1>Listing Authorized Rooms</h1>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Rules</th>
-        <th>Minimum_days</th>
-        <th>City</th>
-        <th>Address</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
-        <th>username</th>
-        <th>Authorized</th>
-        <th>Authorize</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @room_authorized.each do |room| %>
+    <table class="table ">
+      <thead>
         <tr>
-          <td><%= link_to room.name, room %></td>
-          <td><%= room.description  %></td>
-          <td><%= room.price %></td>
-          <td><%= room.rules %></td>
-          <td><%= room.minimum_days%></td>
-          <td><%= room.city_id%></td>
-          <td><%= room.address %></td>
-          <td><%= room.latitude %></td>
-          <td><%= room.longitude %></td>
-          <td><%= room.user.username%></td>
-          <td><%= room.is_authorized %></td>
-          <td><%= form_for(room) do |f| %>
-                <% if current_user.role? "admin" %>
-                  <%= f.check_box :is_authorized %>
-                <% end %>
-                <%= f.submit "Unauthorize Room" %></td>
-              <% end %>
-          <td><%= link_to 'Edit', edit_room_path(room) %></td>
-          <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Rules</th>
+          <th>Minimum_days</th>
+          <th>City</th>
+          <th>Address</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>username</th>
+          <th>Authorized</th>
+          <% if can? :update, Room.new %>
+            <th>Authorize</th>
+            <th>Edit</th>
+            <th>Destroy</th>
+          <% end %>
+          <!-- <th colspan="3"></th> -->
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @room_authorized.each do |room| %>
+          <tr>
+            <td><%= link_to room.name, room %></td>
+            <td><%= room.description  %></td>
+            <td><%= room.price %></td>
+            <td><%= room.rules %></td>
+            <td><%= room.minimum_days%></td>
+            <td><%= room.city_id%></td>
+            <td><%= room.address %></td>
+            <td><%= room.latitude %></td>
+            <td><%= room.longitude %></td>
+            <td><%= room.user.username%></td>
+            <td><%= room.is_authorized %></td>
+            <% if can? :update , Room.new %>
+              <td><%= form_for(room) do |f| %>
+                    <%= f.hidden_field :is_authorized %>
+                    <%= f.submit "Unauthorize Room" %>
+                  <% end %>
+              </td>
+            <% end %>
+            <% if can? :update , Room.new %>
+              <td><%= link_to 'Edit', edit_room_path(room) %></td>
+            <% end %>
+            <% if can? :destroy ,Room.new%>
+            <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+<% end %>
   <%= link_to 'New room', new_room_path %>
 
-<% if current_user.role? "admin"  %>
+<% if can? :update ,Room.new  %>
   <h1>Listing Unauthorized Room</h1>
 
-  <table class="table table-bordered">
+  <table class="table ">
     <thead>
       <tr>
         <th>Name</th>
@@ -65,7 +79,9 @@
         <th>Longitude</th>
         <th>username</th>
         <th>Authorized</th>
-        <th>Authorize</th>
+        <% if can? :update , Room.new %>
+          <th>Authorize</th>
+        <% end %>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -84,12 +100,12 @@
           <td><%= room.longitude %></td>
           <td><%= room.user.username%></td>
           <td><%= room.is_authorized %></td>
-          <td><%= form_for(room) do |f| %>
-                <% if current_user.role? "admin" %>
-                  <%= f.check_box :is_authorized %>
+          <% if can? :update ,Room.new %>
+            <td><%= form_for(room) do |f| %>
+                  <%= f.hidden_field :is_authorized,:checked=>true %>
+                  <%= f.submit "Authorize Room" %></td>
                 <% end %>
-                <%= f.submit "Authorize Room" %></td>
-            <% end %>
+          <% end %>  
           <td><%= link_to 'Edit', edit_room_path(room) %></td>
           <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>

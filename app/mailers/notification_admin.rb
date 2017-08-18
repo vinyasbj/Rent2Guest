@@ -8,7 +8,6 @@ class NotificationAdmin < ApplicationMailer
   def room_confirmation(room)
   	@room = room
     @room1 = User.find_by(role_id: Role.find_by(name: "admin").id).email
-
     mail to: "#{@room1}",subject: "A room has been addded ,which needs to authroized -#{room.id}"
   end
 end

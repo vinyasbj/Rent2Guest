@@ -13,16 +13,21 @@
 <body>
   <div class="container">
     <% if user_signed_in? %>
-       <% if can? :read , User.new %> 
-         <%=link_to "users" , users_path %>
-        <% end %>
+      <% if can? :read , User.new %> 
+        <%=link_to "users" , users_path %>
+      <% end %>
        <% if can? :read , Role.new %> 
         <%=link_to "roles" ,roles_path %> 
        <% end %>
        <% if can? :read ,Room.new %>
         <%= link_to "rooms",rooms_path %>
       <% end %>
-        <%= link_to "cities" , cities_path %> | <%= link_to "amenities" , amenities_path %><br>
+      <% if can? :read, City.new %>
+        <%= link_to "cities" , cities_path %> 
+      <% end %>| 
+      <% if can? :read, Amenity.new %>
+        <%= link_to "amenities" , amenities_path %><br>
+      <% end %>
     	Welcome <%= current_user.username %>
        <%= link_to "Account Setting" , edit_user_registration_path %> | <%= link_to "Logout" , destroy_user_session_path, method: :delete %>
     <% else %>

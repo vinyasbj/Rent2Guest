@@ -65,7 +65,14 @@ class RoomsController < ApplicationController
 	end
 
 	def my_rooms
-		# @my_rooms = Room.
+		authorize! :my_rooms,Room.new
+		@rooms = Room.all
+		@my_room = []
+		@rooms.each do |room|
+			if room.user_id == current_user.id
+				@my_room.push(room)
+			end
+		end 
 	end
 
 	private 

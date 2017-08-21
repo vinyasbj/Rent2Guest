@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816110108) do
+ActiveRecord::Schema.define(version: 20170821055121) do
 
   create_table "amenities", force: :cascade do |t|
     t.string   "name"
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 20170816110108) do
     t.string   "rules"
     t.integer  "minimum_days"
     t.text     "address"
-    t.integer  "latitude"
-    t.integer  "longitude"
+    t.float    "latitude"
+    t.float    "longitude"
     t.boolean  "is_authorized", default: false
     t.integer  "user_id"
     t.integer  "city_id"

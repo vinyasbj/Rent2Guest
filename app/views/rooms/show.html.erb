@@ -1,50 +1,60 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+<div class="row">
+    <div class="col-lg-6">
+      <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @room.name %>
-</p>
+      <p>
+        <strong>Name:</strong>
+        <%= @room.name %>
+      </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @room.description %>
-</p>
+      <p>
+        <strong>Description:</strong>
+        <%= @room.description %>
+      </p>
 
-<p>
-  <strong>price:</strong>
-  <%= @room.price %>
-</p>
+      <p>
+        <strong>price:</strong>
+        <%= @room.price %>
+      </p>
 
-<p>
-  <strong>Rules:</strong>
-  <%= @room.rules %>
-</p>
+      <p>
+        <strong>Rules:</strong>
+        <%= @room.rules %>
+      </p>
 
-<p>
-  <strong>Minimum_days:</strong>
-  <%= @room.minimum_days %>
-</p>
+      <p>
+        <strong>Minimum_days:</strong>
+        <%= @room.minimum_days %>
+      </p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @room.address %>
-</p>
+      <p>
+        <strong>Address:</strong>
+        <%= @room.address %>
+      </p>
 
-<p>
-  <strong>Latitude:</strong>
-  <%= @room.latitude %>
-</p>
+      <p>
+        <strong>Latitude:</strong>
+        <%= @room.latitude %>
+      </p>
 
-<p>
-  <strong>Longitude:</strong>
-  <%= @room.longitude %>
-</p>
+      <p>
+        <strong>Longitude:</strong>
+        <%= @room.longitude %>
+      </p>
 
-<p>
-  <strong>is_authorized:</strong>
-  <%= @room.is_authorized %>
-</p>
-<% if can? :update, Room.new %>
-  <%= link_to 'Edit', edit_room_path(@room) %> |
-<% end %>
-<%= link_to 'Back', rooms_path %>
+      <p>
+        <strong>is_authorized:</strong>
+        <%= @room.is_authorized %>
+      </p>
+      <% if can? :update, Room.new %>
+        <%= link_to 'Edit', edit_room_path(@room) %> |
+      <% end %>
+      <%= link_to 'Back', rooms_path %>
+    </div>
+    <div class="col-lg-6">
+        <iframe width="600" height="450" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCYFVYJF-LwXd7IZ0kpN9Ine9o7rrHRQXQ
+    &q=<%= @room.latitude %>,<%= @room.longitude %>" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>

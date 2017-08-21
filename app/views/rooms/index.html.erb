@@ -60,7 +60,9 @@
       </tbody>
     </table>
 <% end %>
+<% if can? :create ,Room.new %>
   <%= link_to 'New room', new_room_path %>
+<% end %>
 
 <% if can? :update ,Room.new  %>
   <h1>Listing Unauthorized Room</h1>

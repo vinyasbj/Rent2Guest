@@ -2,11 +2,14 @@ class Room < ActiveRecord::Base
 	has_many :cities
 	belongs_to :user
 	has_many :amenity_rooms
-	has_many :amenities ,through: :amenity_rooms 
+	has_many :amenities ,through: :amenity_rooms
+	has_many :images 
+
 	validates_presence_of :name ,:description,:price,:rules,:minimum_days,:address,:latitude,:longitude
 	after_create :assign_role_to_host
 	after_create :send_confirmation
 	after_update :admin_room_confirmation
+
 
 	def send_confirmation
 		# self.user.where(role_id: 1)

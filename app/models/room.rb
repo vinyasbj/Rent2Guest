@@ -3,14 +3,15 @@ class Room < ActiveRecord::Base
 	belongs_to :user
 	has_many :amenity_rooms
 	has_many :amenities ,through: :amenity_rooms
-	has_many :images 
+	has_many :images
+	accepts_nested_attributes_for :images
 
 	validates_presence_of :name ,:description,:price,:rules,:minimum_days,:address,:latitude,:longitude
 	after_create :assign_role_to_host
 	after_create :send_confirmation
 	after_update :admin_room_confirmation
 
-
+	
 	def send_confirmation
 		# self.user.where(role_id: 1)
 		NotificationAdmin.room_confirmation(self).deliver!

@@ -44,6 +44,14 @@
       </p>
 
       <p>
+        <strong>Image:</strong>
+        <% @room.images.each do |r| %>
+          <%= image_tag r.image %>
+        <% end %>
+        <%#= image_tag @room.images.image %>
+      </p>
+
+      <p>
         <strong>is_authorized:</strong>
         <%= @room.is_authorized %>
       </p>

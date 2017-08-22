@@ -60,6 +60,12 @@
   <div class="field">
     <%= f.label :longitude %><br>
     <%= f.text_field :longitude %>
+  </div><br>
+
+  <div>
+    <%= f.fields_for :images, @image do |ff| %>
+      <%= ff.file_field :image %>
+    <% end %>
   </div>
   <%# only for admin %>
   <div class="field">
@@ -94,7 +100,6 @@
             if(xhr.readyState == 4 && xhr.status == 200){
                 var response = JSON.parse(xhr.responseText);
                       result = response.results;
-
                      var latitude = "";
                       var longitude = "";
                   result.forEach(function(res){

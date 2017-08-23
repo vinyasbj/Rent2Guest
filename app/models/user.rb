@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   belongs_to :role
   has_many :rooms
-  
+  has_many :amenities
   after_create :assign_role_to_user
 
   def role?(role)

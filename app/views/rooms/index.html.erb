@@ -104,7 +104,7 @@
           <td><%= room.is_authorized %></td>
           <% if can? :update ,Room.new %>
             <td><%= form_for(room) do |f| %>
-                  <%= f.hidden_field :is_authorized,:checked=>true %>
+                  <%= f.hidden_field :is_authorized,:value => true%>
                   <%= f.submit "Authorize Room" %></td>
                 <% end %>
           <% end %>  

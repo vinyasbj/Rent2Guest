@@ -37,10 +37,10 @@
   </div>
 
   <div class="field">
-    <%= f.label :amenity %><br>
-    <%= f.collection_check_boxes :amenity_ids ,Amenity.all ,:id,:name%>
+    <%= f.label :amenity_ids %><br>
+    <%= f.collection_check_boxes :amenity_ids,Amenity.all ,:id,:name %>
   </div>
-
+  
   <div class="field">
     <%= f.label :city %><br>
     <%= f.collection_select :city_id, City.all,:id,:name ,{promt: "select city"} %>

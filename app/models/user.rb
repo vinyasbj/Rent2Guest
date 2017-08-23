@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   end
 
   def assign_role_to_user
-      role = Role.find_by(name: "host").id
+      role = Role.find_by(name: "guest").id
       self.role_id = role
       self.save
   end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :roles
   resources :images
   resources :rooms
+  resources :bookings
   scope "/admin" do
      resources :users
   end

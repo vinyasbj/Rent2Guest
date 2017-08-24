@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username,:first_name,:last_name
 
   belongs_to :role
+  has_many :bookings
   has_many :rooms
   has_many :amenities
   after_create :assign_role_to_user

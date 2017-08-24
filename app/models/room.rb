@@ -5,7 +5,7 @@ class Room < ActiveRecord::Base
 	has_many :amenity_rooms
 	has_many :amenities ,through: :amenity_rooms
 	accepts_nested_attributes_for :images
-
+	has_many :bookings
 	validates_presence_of :name ,:description,:price,:rules,:minimum_days,:address,:latitude,:longitude
 	
 	after_create :assign_role_to_host
@@ -27,7 +27,7 @@ class Room < ActiveRecord::Base
 		role_host= Role.second
 		if self.user.role_id != role_admin.id 	
 			self.user.role_id = role_host.id
-			user.save
+			self.user.save
 		end
 	end
 end

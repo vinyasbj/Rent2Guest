@@ -14,10 +14,12 @@ class RoomsController < ApplicationController
 		end
 		@room_authorized = Room.where(is_authorized: true)
 		@room_unauthorized = Room.where(is_authorized: false)
+		@room = Room.new
 	end
 
 	def show
 		@room = Room.find(params[:id])
+		@booking = Booking.new
 	end
 
 	def new

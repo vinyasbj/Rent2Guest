@@ -9,4 +9,4 @@ Role.create(name: "admin")
 Role.create(name: "host")
 Role.create(name: "guest")
 
-User.create(email: "vinyas555@gmail.com",password: "qwerty",username: "vinyas",first_name: "vinyas",last_name:"BJ",number:"1234567890",role_id: 3)
+User.create(email: "vinyas555@gmail.com",password: "qwerty",username: "vinyas",first_name: "vinyas",last_name:"BJ",number:"1234567890",role_id: 1)

@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
 	before_action :set_booking, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  # load_and_authorize_resource
+  load_and_authorize_resource
   def index
     @bookings = Booking.all
   end
@@ -22,7 +22,7 @@ class BookingsController < ApplicationController
     @booking.user_id = current_user.id
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to :back, notice: 'booking was successfull.' }
+        format.html { redirect_to room_path(@booking.room_id), notice: 'booking was successfull.' }
         format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new }
@@ -50,7 +50,10 @@ class BookingsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  def my_bookings
+    authorize! :my_bookings,Booking.new
+    @bookings = Booking.current_user.all
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_booking

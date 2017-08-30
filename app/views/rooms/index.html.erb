@@ -2,6 +2,9 @@
 <% if can? :my_rooms , Room.new %>
   <%= link_to("my_rooms", rooms_my_rooms_path) %>
 <% end %>
+<% if can? :my_bookings ,Booking.new %>
+   <%= link_to("my_bookings", bookings_my_bookings_path ) %> 
+<% end %>
 <% if can? :read , Room.new %>
   <h1>Listing Authorized Rooms</h1>
 

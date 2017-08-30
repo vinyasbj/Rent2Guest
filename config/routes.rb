@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'rooms/my_rooms'
+  get 'bookings/my_bookings'
   resources :amenities
   devise_for :users
   resources :cities

@@ -5,23 +5,29 @@ class Ability
     if user.nil?
       can :read,[City,Amenity,Room,Booking]
     elsif user.role? "admin"
+      can :my_bookings,Booking 
       can :manage ,[City,Amenity,User,Room]
       can [:create ,:read,:update],Role
-      can [:create,:read,:update],Booking do |booking|
+      can [:create,:read],Booking
+      can [:update,:destroy],Booking do |booking|
           booking.user == user
       end
     elsif user.role? "host"
-      can :my_rooms,Room 
+      can :my_rooms,Room
+      can :my_bookings,Booking 
       can [:read,:create],[Room]
       can [:update,:destroy],Room do |room|
         room.user == user
       end
-      can [:create,:read],Booking do |booking|
+      can [:create,:read],Booking
+      can [:update,:destroy],Booking do |booking|
           booking.user == user
       end
     elsif user.role? "guest"
+      can :my_bookings,Booking 
       can [:read,:create], Room
-      can [:create,:read],Booking do |booking|
+      can [:create,:read],Booking
+      can [:update,:destroy],Booking do |booking|
           booking.user == user
       end
     end

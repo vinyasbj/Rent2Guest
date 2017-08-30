@@ -80,12 +80,13 @@
             <%= f.date_field :end_date ,id: "to" %>
           </div>
           <div class="field">
-            <%= f.label :amount %><br>
-            <%= f.number_field :amount %>
+            <p></p>
           </div>
           <div class="field">
+          <% if can? :read , Role.new %>
             <%= f.label :confirm %>
             <%= f.check_box :is_confirmed %>
+          <% end %>
           </div>
           <%=f.hidden_field :room_id , value: @room.id %>
           <div class="actions">

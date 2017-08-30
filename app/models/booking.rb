@@ -7,10 +7,12 @@ class Booking < ActiveRecord::Base
 	def booking_validation
 		bookings = Booking.where(room_id: self.room_id)
 		bookings.each do |booking|
-			# binding.pry
-			if (booking.start_date..booking.end_date).include?(self.start_date) || (booking.start_date..booking.end_date).include?(self.end_date) || booking.start_date < self.start_date || booking.end_date > self.end_date
+			booking_array = []
+			booking_array = (self.start_date..self.end_date).to_a
+			if booking_array.include?(self.start_date) || booking_array.include?(self.end_date)
 				self.errors.add(:base ,"cant book in this dates")
-				break
+			elsif self.start_date >  self.end_date || self.end_date < self.start_date
+				self.errors.add(:base ,"end date cannot be less than start date")
 			end
 		end
 	end

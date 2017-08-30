@@ -1,0 +1,1 @@
+json.(@room_authorized,:name ) 

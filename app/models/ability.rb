@@ -3,18 +3,27 @@ class Ability
 
   def initialize(user)
     if user.nil?
-      can :read,[City,Amenity,Room]
+      can :read,[City,Amenity,Room,Booking]
     elsif user.role? "admin"
       can :manage ,[City,Amenity,User,Room]
       can [:create ,:read,:update],Role
+      can [:create,:read,:update],Booking do |booking|
+          booking.user == user
+      end
     elsif user.role? "host"
       can :my_rooms,Room 
       can [:read,:create],[Room]
       can [:update,:destroy],Room do |room|
         room.user == user
       end
+      can [:create,:read],Booking do |booking|
+          booking.user == user
+      end
     elsif user.role? "guest"
       can [:read,:create], Room
+      can [:create,:read],Booking do |booking|
+          booking.user == user
+      end
     end
 
     # Define abilities for the passed in user here. For example:

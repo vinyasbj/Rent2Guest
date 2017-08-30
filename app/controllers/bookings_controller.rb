@@ -20,10 +20,9 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.user_id = current_user.id
-    @booking.room_id = 4
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to @booking, notice: 'booking was successfully created.' }
+        format.html { redirect_to :back, notice: 'booking was successfull.' }
         format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new }
@@ -59,6 +58,6 @@ class BookingsController < ApplicationController
     end
 
     def booking_params
-      params.require(:booking).permit(:start_date,:end_date,:user_id,:room_id,:is_confirmed)
+      params.require(:booking).permit(:start_date,:end_date,:user_id,:amount,:room_id,:is_confirmed)
     end
 end

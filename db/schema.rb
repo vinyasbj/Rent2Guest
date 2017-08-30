@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170823090911) do
     t.date     "end_date"
     t.integer  "user_id"
     t.integer  "room_id"
+    t.float    "amount"
     t.boolean  "is_confirmed", default: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false

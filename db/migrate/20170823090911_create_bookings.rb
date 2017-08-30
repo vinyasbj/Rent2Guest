@@ -5,6 +5,7 @@ class CreateBookings < ActiveRecord::Migration
       t.date :end_date
       t.integer :user_id
       t.integer :room_id
+      t.float :amount
       t.boolean :is_confirmed ,default: false
 
       t.timestamps null: false

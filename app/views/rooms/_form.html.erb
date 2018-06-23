@@ -63,9 +63,10 @@
   </div><br>
 
   <div>
-    <%= f.fields_for :images, @image do |ff| %>
-      <%= ff.file_field :image %>
-    <% end %>
+    <%= f.label :images %>
+      <%= f.file_field :images,multiple: true %>
+    <%#= f.fields_for :images, @image do |ff| %>
+    <%# end %>
   </div>
   <%# only for admin %>
   <div class="field">

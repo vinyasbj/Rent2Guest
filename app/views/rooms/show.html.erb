@@ -45,10 +45,9 @@
 
       <p>
         <strong>Image:</strong>
-        <%# @room.images.each do |r| %>
-          <%#= image_tag r.image %>
-        <%# end %>
-        <%#= image_tag @room.images.image %>
+        <% @images.each do |image| %>
+          <%= image_tag image %>
+        <% end -%>
       </p>
 
       <p>

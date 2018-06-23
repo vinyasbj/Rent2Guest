@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   devise_for :users
   resources :cities
   resources :roles
-  resources :images
   resources :rooms
   resources :bookings
   scope "/admin" do

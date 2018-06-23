@@ -1,10 +1,11 @@
 class Room < ActiveRecord::Base
 	has_many :cities
 	belongs_to :user
-	has_many :images
 	has_many :amenity_rooms
 	has_many :amenities ,through: :amenity_rooms
-	accepts_nested_attributes_for :images
+
+	has_many_attached :images
+
 	has_many :bookings
 	validates_presence_of :name ,:description,:price,:rules,:minimum_days,:address,:latitude,:longitude
 	

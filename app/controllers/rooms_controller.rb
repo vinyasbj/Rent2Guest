@@ -24,7 +24,7 @@ class RoomsController < ApplicationController
 
 	def new
 		@room = Room.new
-		@image = Image.new
+		# @image = Image.new
 	end
 
 	def edit

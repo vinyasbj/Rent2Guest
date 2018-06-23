@@ -9,8 +9,8 @@ class Room < ActiveRecord::Base
 	validates_presence_of :name ,:description,:price,:rules,:minimum_days,:address,:latitude,:longitude
 	
 	after_create :assign_role_to_host
-	after_create :send_confirmation
-	after_update :admin_room_confirmation
+	# after_create :send_confirmation
+	# after_update :admin_room_confirmation
 
 
 	def send_confirmation
